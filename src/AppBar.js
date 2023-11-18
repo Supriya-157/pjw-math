@@ -25,20 +25,20 @@ const ResponsiveAppBar = (props) => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
+  // const handleOpenUserMenu = (event) => {
+  //   setAnchorElUser(event.currentTarget);
+  // };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  // const handleCloseUserMenu = () => {
+  //   setAnchorElUser(null);
+  // };
   
 const handleparentPopup = ()=>{
   props.handleOpenPopup();
@@ -101,8 +101,8 @@ const [silverRate,setSilverRate] = React.useState(null);
           <Box >
          
         <Stack direction="column" spacing={-2} style={{backgroundColor:'pink'}}>
-       <Button  key="one" onClick={props.handleOpenPopup}>Gold 999: {goldRate} </Button>
-  <Button key="two" onClick={ ()=> handleparentPopup()}>Silver 999: {silverRate} </Button>
+        <Button  key="one" onClick={props.handleOpenPopup}>Gold 999: {goldRate} </Button>
+        <Button key="two" onClick={ ()=> handleparentPopup()}>Silver 999: {silverRate} </Button>
   </Stack>
      
            

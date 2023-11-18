@@ -52,10 +52,10 @@ export default function FormDialog(props) {
     goldRateHelperText:''    
   });
 
-  const handleClickOpen = () => {
-    setOpen(true);
-    props.status = true;
-  };
+  // const handleClickOpen = () => {
+  //   setOpen(true);
+  //   props.status = true;
+  // };
 
   const handleClose = () => {
     setOpen(false);
@@ -78,13 +78,13 @@ export default function FormDialog(props) {
           localStorage.setItem('silverRate',values.silverRate);
           handleClose();
     }
-    else if(values.silverRate == ''){
+    else if(values.silverRate === ''){
              setValues({
             ...values,
             ['silverRateHelperText']:'Enter Silver Rate'            
           });
     }
-    else if(values.goldRate == ''){
+    else if(values.goldRate === ''){
         console.log('in else if gold');
 
         setValues({
