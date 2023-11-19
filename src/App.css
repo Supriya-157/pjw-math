@@ -39,6 +39,22 @@
   color: rgb(247, 217, 48);
 }
 
+.cal-btn{
+  margin:10px 10px 0 0;
+}
+
+.app-body{
+  padding: 5px;
+}
+
+.tbl-container{
+  padding: 24px 5px;
+}
+
+.MuiBox-root{
+  padding: 24px 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
