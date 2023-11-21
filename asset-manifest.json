@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pjw-math/static/css/main.cc814536.css",
-    "main.js": "/pjw-math/static/js/main.5fb15b5b.js",
+    "main.js": "/pjw-math/static/js/main.4888f843.js",
     "static/js/787.af4ef196.chunk.js": "/pjw-math/static/js/787.af4ef196.chunk.js",
     "index.html": "/pjw-math/index.html",
     "main.cc814536.css.map": "/pjw-math/static/css/main.cc814536.css.map",
-    "main.5fb15b5b.js.map": "/pjw-math/static/js/main.5fb15b5b.js.map",
+    "main.4888f843.js.map": "/pjw-math/static/js/main.4888f843.js.map",
     "787.af4ef196.chunk.js.map": "/pjw-math/static/js/787.af4ef196.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cc814536.css",
-    "static/js/main.5fb15b5b.js"
+    "static/js/main.4888f843.js"
   ]
 }
