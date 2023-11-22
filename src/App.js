@@ -235,10 +235,18 @@ const goldRateCard = ()=> {
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
             <Grid container >
-        <Grid item xs={4}> <strong>916:</strong>{Math.round(goldRateObj[916]).toLocaleString()}</Grid> 
-        <Grid item xs={4}> <strong>85 :</strong>{Math.round(goldRateObj[85]).toLocaleString()}</Grid> 
-        <Grid item xs={4}> <strong>75 :</strong>{Math.round(goldRateObj[75]).toLocaleString()}</Grid> 
+        <Grid item xs={4}> <strong>916:</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[916]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>85 :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[85]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>75 :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[75]).toLocaleString()}</span></Grid> 
         </Grid>
+        <svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style={{display: "none"}}>
+          <defs>
+            <filter id="marker-shape">
+              <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+              <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp" />
+            </filter>
+          </defs>
+        </svg>
                 <BasicTable dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
