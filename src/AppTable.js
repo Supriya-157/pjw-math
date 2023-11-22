@@ -14,10 +14,10 @@ export default function AppTable(props) {
       <Table sx={{ minWidth: 330 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell style={{ width: 110,padding: '16px 5px 16px 2px' }}>Item</TableCell>
-            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">WS&nbsp;(gm)</TableCell>
-            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">MC (₹)</TableCell>
-            <TableCell style={{ width: 60,padding: '16px 5px 16px 2px' }} align="right">Amount (₹)</TableCell>            
+            <TableCell style={{ width: 80,padding: '16px 5px 16px 2px' }}>Item</TableCell>
+            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">WS(gm)</TableCell>
+            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">MC(₹)</TableCell>
+            <TableCell style={{ width: 100,padding: '16px 5px 16px 2px' }} align="right">Amount (₹)</TableCell>            
           </TableRow>
         </TableHead>
         <TableBody>
@@ -26,12 +26,12 @@ export default function AppTable(props) {
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell style={{ width: 110,padding: '16px 5px 16px 2px' }}>
+              <TableCell style={{ width: 80,padding: '16px 5px 16px 2px' }}>
                 {row.name}
               </TableCell>
               <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.ws}</TableCell>
               <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.mc}</TableCell>
-              <TableCell style={{ width: 60,padding: '16px 5px 16px 2px' }} align="right">{row.min} - {row.max}</TableCell>              
+              <TableCell style={{ width: 100,padding: '16px 5px 16px 2px' }} align="right">{row.min} - {row.max}</TableCell>              
             </TableRow>
           ))}
         </TableBody>

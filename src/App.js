@@ -200,7 +200,7 @@ const goldRateCard = ()=> {
       </AppBar>
         <div className="app-body">      
         <Grid container spacing={2}>
-        <Grid item xs={8}>         
+        <Grid item xs={7}>         
           <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '16ch' }}>
             <Input
               id="weight"
@@ -216,7 +216,7 @@ const goldRateCard = ()=> {
             <FormHelperText id="standard-weight-helper-text">Weight</FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5} >
           <div className='cal-btn'>
           <Button variant="contained" onClick={()=> handleCalculation()}>Calculate</Button>
           </div>
