@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useEffect} from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -58,7 +58,7 @@ export default function FormDialog(props) {
   // };
 
   const handleClose = () => {
-    setOpen(false);
+    //setOpen(false);
    // props.status = false;
     
     props.handleRateChange();
@@ -129,10 +129,14 @@ export default function FormDialog(props) {
 }
    
   };
+
+  useEffect(() => {
+    //setOpen(true);
+  }, [])
   
   return (
     <div>      
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={props.status} onClose={handleClose}>
         <DialogTitle>Enter the Rate</DialogTitle>
         <DialogContent >       
         
