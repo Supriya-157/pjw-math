@@ -31,6 +31,13 @@ function App() {
   const rows = JewelleryItems;
   const wsForGold = GoldWastageChart;
 
+  const [goldRateObj, setGoldRateObj]=useState({
+    "75":0,
+    "85":0,
+    "916":0
+  });
+  
+
   
   const handleRateChange = () => {
     setGoldRate(localStorage.getItem('goldRate'));
@@ -70,16 +77,38 @@ function App() {
 
 const handleOnChange = (e)=> {
   console.log(state.weight);
-  setState({weight : e.target.value})
+  const weight = e.target.value;
+  if(weight.match(/^\d{1,}(\.\d{0,4})?$/))
+  {
+    setState({weight : e.target.value})
+  }else{
+    setState({weight : weight.substring(0, weight.length - 1)})
+  }
+  
  };
+
+const goldRateCard = ()=> {
+  const gold24CrtRt = Number(localStorage.getItem('goldRate'));
+  const gold916Rt = gold24CrtRt * 22/24;
+  const gold85KdmRt = gold24CrtRt * 0.85;
+  const gold75Rt = gold24CrtRt * 0.75;
+  console.log("before setting rate"+JSON.stringify(goldRateObj));
+  setGoldRateObj({
+    "75":gold75Rt,
+    "85":gold85KdmRt,
+    "916":gold916Rt
+  });
+  console.log("after setting gold rate"+JSON.stringify(goldRateObj));
+ //return goldRateObj;
+
+}
 
   const handleCalculation = ()=> {
         console.log(state.weight);
-        const gold24CrtRt = Number(localStorage.getItem('goldRate'));
-        const gold916Rt = gold24CrtRt * 22/24;
-        const gold85KdmRt = gold24CrtRt * 0.85;
-        const gold75Rt = gold24CrtRt * 0.75;
-        
+       // const goldRates = goldRateCard() ; //;goldRateObj
+       
+      // goldRateCard();
+       
         let itemWt = Number(state.weight);
         let itemWastage = 0;
         let itemMaking = 0;
@@ -92,15 +121,15 @@ const handleOnChange = (e)=> {
 
           rows.filter(y=> y.isGold).map(x=>{
             if(x.touch == 92){
-              x.max = Math.round((( itemWt + itemWastage ) * (gold916Rt/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (gold916Rt/10) ) + itemMaking).toLocaleString();              
+              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();               
+              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();              
             }else if(x.touch == 85){
-              x.max = Math.round((( itemWt + itemWastage ) * (gold85KdmRt/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (gold85KdmRt/10) ) + itemMaking).toLocaleString();
+              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();               
+              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();
             }
             else if(x.touch == 75){
-              x.max = Math.round((( itemWt + itemWastage ) * (gold75Rt/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (gold75Rt/10) ) + itemMaking).toLocaleString();
+              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();               
+              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();
             } 
             x.ws = itemWastage.toFixed(3);
             x.mc = Math.round(itemMaking).toLocaleString();
@@ -115,10 +144,12 @@ const handleOnChange = (e)=> {
 
   useEffect(()=>{
     console.log(isPopupOpen);
+    goldRateCard();
    // setIsPopupOpen(true);
   },[isPopupOpen])
 
   return (
+    
     <div>
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -203,6 +234,11 @@ const handleOnChange = (e)=> {
                 <BasicTable dataSource={rows.filter(x => !x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
+            <Grid container >
+        <Grid item xs={4}> <strong>916:</strong>{Math.round(goldRateObj[916]).toLocaleString()}</Grid> 
+        <Grid item xs={4}> <strong>85 :</strong>{Math.round(goldRateObj[85]).toLocaleString()}</Grid> 
+        <Grid item xs={4}> <strong>75 :</strong>{Math.round(goldRateObj[75]).toLocaleString()}</Grid> 
+        </Grid>
                 <BasicTable dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>

@@ -44,8 +44,8 @@ export default function FormDialog(props) {
   const [isSaveBtnClicked,setIsSaveBtnClicked]=React.useState(false);
   const [values, setValues] = React.useState(
     {    
-    silverRate: '',
-    goldRate:'',
+    silverRate: localStorage.getItem('silverRate') != null ? localStorage.getItem('silverRate') : '00000' ,
+    goldRate:localStorage.getItem('goldRate') != null ? localStorage.getItem('goldRate') : '00000',
     silverRateHelperText:'',
     goldRateMaxLength:true,
     silverRateMaxLength:true,
