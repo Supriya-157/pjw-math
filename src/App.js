@@ -119,6 +119,7 @@ const goldRateCard = ()=> {
               }    
           });
 
+          //FOR GOLD
           rows.filter(y=> y.isGold).map(x=>{
             if(x.touch == 92){
               x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();               
@@ -133,7 +134,10 @@ const goldRateCard = ()=> {
             } 
             x.ws = itemWastage.toFixed(3);
             x.mc = Math.round(itemMaking).toLocaleString();
-          })
+          });
+
+          //FOR EXCHANGE
+
 
 
   };
@@ -200,7 +204,7 @@ const goldRateCard = ()=> {
       </AppBar>
         <div className="app-body">      
         <Grid container spacing={2}>
-        <Grid item xs={8}>         
+        <Grid item xs={7}>         
           <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '16ch' }}>
             <Input
               id="weight"
@@ -216,7 +220,7 @@ const goldRateCard = ()=> {
             <FormHelperText id="standard-weight-helper-text">Weight</FormHelperText>
           </FormControl>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={5} >
           <div className='cal-btn'>
           <Button variant="contained" onClick={()=> handleCalculation()}>Calculate</Button>
           </div>
@@ -228,21 +232,38 @@ const goldRateCard = ()=> {
                 <Tab label="Silver"  />
                 <Tab label="Gold"  />
                 <Tab label="Exchange"  />
+                <Tab label="Pledge"  />
             </Tabs>
         </Box>
             <CustomTabPanel value={value} index={0}>
-                <BasicTable dataSource={rows.filter(x => !x.isGold)}/>
+            <Grid container >
+        <Grid item xs={4}> <strong>ಕಾಲ Chain:</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[916]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>ಕೈ ಕಾಲ ಬಳೆ :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[85]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>Sheet :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[75]).toLocaleString()}</span></Grid> 
+        </Grid>
+                <BasicTable dataSource={rows.filter(x => !x.isGold && !x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
             <Grid container >
-        <Grid item xs={4}> <strong>916:</strong>{Math.round(goldRateObj[916]).toLocaleString()}</Grid> 
-        <Grid item xs={4}> <strong>85 :</strong>{Math.round(goldRateObj[85]).toLocaleString()}</Grid> 
-        <Grid item xs={4}> <strong>75 :</strong>{Math.round(goldRateObj[75]).toLocaleString()}</Grid> 
+        <Grid item xs={4}> <strong>916:</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[916]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>85 :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[85]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>75 :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[75]).toLocaleString()}</span></Grid> 
         </Grid>
+        <svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style={{display: "none"}}>
+          <defs>
+            <filter id="marker-shape">
+              <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+              <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="30" in="SourceGraphic" in2="warp" />
+            </filter>
+          </defs>
+        </svg>
                 <BasicTable dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-                Exchange
+                <BasicTable dataSource={rows.filter(x => x.isExchange)}/>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={3}>
+                pledge data
             </CustomTabPanel>
         </div>
         <RatePopup status={isPopupOpen} handleRateChange={handleRateChange}/>

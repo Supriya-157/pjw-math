@@ -1,38 +1,57 @@
 import * as React from 'react';
 import Table from '@mui/material/Table';
+import { styled } from '@mui/material/styles';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses }  from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: 'rgb(247, 217, 48)',
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
 export default function AppTable(props) {
   return (
     <TableContainer component={Paper} className='tbl-container'>
       <Table sx={{ minWidth: 330 }} aria-label="simple table">
         <TableHead>
-          <TableRow>
-            <TableCell style={{ width: 110,padding: '16px 5px 16px 2px' }}>Item</TableCell>
-            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">WS&nbsp;(gm)</TableCell>
-            <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">MC (₹)</TableCell>
-            <TableCell style={{ width: 60,padding: '16px 5px 16px 2px' }} align="right">Amount (₹)</TableCell>            
-          </TableRow>
+          <StyledTableRow>
+            <StyledTableCell style={{ width: 80,padding: '16px 5px 16px 2px' }}>Item</StyledTableCell>
+            <StyledTableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">Ws(gm)</StyledTableCell>
+            <StyledTableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">Mc(₹)</StyledTableCell>
+            <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }} align="right">Amount (₹)</StyledTableCell>            
+          </StyledTableRow>
         </TableHead>
         <TableBody>
           {props.dataSource.map((row) => (
-            <TableRow 
+            <StyledTableRow 
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell style={{ width: 110,padding: '16px 5px 16px 2px' }}>
+              <StyledTableCell style={{ width: 80,padding: '16px 5px 16px 2px' }}>
                 {row.name}
-              </TableCell>
-              <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.ws}</TableCell>
-              <TableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.mc}</TableCell>
-              <TableCell style={{ width: 60,padding: '16px 5px 16px 2px' }} align="right">{row.min} - {row.max}</TableCell>              
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.ws}</StyledTableCell>
+              <StyledTableCell style={{ width: 30,padding: '16px 5px 16px 2px' }} align="right">{row.mc}</StyledTableCell>
+              <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }} align="right">{row.min} - {row.max}</StyledTableCell>              
+            </StyledTableRow>
           ))}
         </TableBody>
       </Table>
