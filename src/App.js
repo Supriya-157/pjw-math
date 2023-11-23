@@ -119,6 +119,7 @@ const goldRateCard = ()=> {
               }    
           });
 
+          //FOR GOLD
           rows.filter(y=> y.isGold).map(x=>{
             if(x.touch == 92){
               x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();               
@@ -133,7 +134,10 @@ const goldRateCard = ()=> {
             } 
             x.ws = itemWastage.toFixed(3);
             x.mc = Math.round(itemMaking).toLocaleString();
-          })
+          });
+
+          //FOR EXCHANGE
+
 
 
   };
@@ -228,10 +232,16 @@ const goldRateCard = ()=> {
                 <Tab label="Silver"  />
                 <Tab label="Gold"  />
                 <Tab label="Exchange"  />
+                <Tab label="Pledge"  />
             </Tabs>
         </Box>
             <CustomTabPanel value={value} index={0}>
-                <BasicTable dataSource={rows.filter(x => !x.isGold)}/>
+            <Grid container >
+        <Grid item xs={4}> <strong>ಕಾಲ Chain:</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[916]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>ಕೈ ಕಾಲ ಬಳೆ :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[85]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>Sheet :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[75]).toLocaleString()}</span></Grid> 
+        </Grid>
+                <BasicTable dataSource={rows.filter(x => !x.isGold && !x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
             <Grid container >
@@ -250,7 +260,10 @@ const goldRateCard = ()=> {
                 <BasicTable dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={2}>
-                Exchange
+                <BasicTable dataSource={rows.filter(x => x.isExchange)}/>
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={3}>
+                pledge data
             </CustomTabPanel>
         </div>
         <RatePopup status={isPopupOpen} handleRateChange={handleRateChange}/>

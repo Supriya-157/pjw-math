@@ -22,6 +22,57 @@ export const JewelleryItems = [
         touch:55
     },
     {
+        name:"Ladies Ring",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: false,
+        isGold:false,
+        touch:55
+    },
+    {
+        name:"ಕೈ ಬಳೆ",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: false,
+        isGold:false,
+        touch:55
+    },
+    {
+        name:"ಕಾಲ ಬಳೆ",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: false,
+        isGold:false,
+        touch:55
+    },
+    {
+        name:"Lakshmi Face",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: false,
+        isGold:false,
+        touch:80
+    },
+    {
+        name:"ಕಾಲ Chain",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: false,
+        isGold:false,
+        touch:80
+    },
+
+    {
         name:"75 T",
         ws:0,
         mc:0,
@@ -50,6 +101,16 @@ export const JewelleryItems = [
         isExchange: false,
         isGold:true,
         touch:92
+    },
+    {
+        name:"Silver item",
+        ws:0,
+        mc:0,
+        min:0,
+        max:0,
+        isExchange: true,
+        isGold:false,
+        touch:0
     }
   ];
 
