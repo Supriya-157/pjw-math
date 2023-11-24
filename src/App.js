@@ -1,5 +1,6 @@
 import React, {useEffect,useState} from 'react';
 import RatePopup from './ratePopup';
+import ConfigRatePopup from './configRatePopup';
 import AppBar from '@mui/material/AppBar';
 import Container from '@mui/material/Container';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +19,7 @@ import Typography from '@mui/material/Typography';
 import BasicTable from './AppTable';
 import AdbIcon from '@mui/icons-material/Adb';
 import SettingsIcon from '@mui/icons-material/Settings';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { pink } from '@mui/material/colors';
 import './App.css';
 
@@ -26,6 +28,7 @@ function App() {
   const [goldRate, setGoldRate] = React.useState(localStorage.getItem('goldRate') != null ? localStorage.getItem('goldRate') : '00000' ); 
   const [silverRate, setSilverRate] = React.useState(localStorage.getItem('silverRate') != null ? localStorage.getItem('silverRate') : '00000' ); 
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);//React.useState(localStorage.getItem('goldRate') != null ? false : true);
+  const [isSilverPopupOpen, setIsSilverPopupOpen] = React.useState(false);
   const [state, setState] = useState({weight: undefined});
   const [value, setValue] = React.useState(0);
   const rows = JewelleryItems;
@@ -43,6 +46,11 @@ function App() {
     setGoldRate(localStorage.getItem('goldRate'));
     setSilverRate(localStorage.getItem('silverRate'));
     setIsPopupOpen(false);   
+  };
+  const handleConfigRateChange = () => {
+    //setGoldRate(localStorage.getItem('goldRate'));
+    //setSilverRate(localStorage.getItem('silverRate'));
+    setIsSilverPopupOpen(false);   
   };
 
   
@@ -70,6 +78,11 @@ function App() {
     console.log('handleOpenPopup called');
     setIsPopupOpen(true);    
     console.log(isPopupOpen);
+  };
+  const handleSilverRate = () => {
+    console.log('handleSilverRate called');
+    setIsSilverPopupOpen(true);    
+    console.log(isSilverPopupOpen);
   };
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -150,7 +163,7 @@ const goldRateCard = ()=> {
     console.log(isPopupOpen);
     goldRateCard();
    // setIsPopupOpen(true);
-  },[isPopupOpen])
+  },[isPopupOpen,isSilverPopupOpen])
 
   return (
     
@@ -193,9 +206,12 @@ const goldRateCard = ()=> {
                   textDecoration: 'none',
                 }}
               >
-                            PAVAN JEWELLERY
+                            PAVAN
 
             </Typography>
+            <div style={{display:'inline-block', cursor:'pointer'}} onClick={handleSilverRate}>
+            <BorderColorIcon/>
+            </div>
             <div style={{display:'inline-block', cursor:'pointer'}} onClick={handleOpenPopup}>
               <SettingsIcon/>              
             </div>
@@ -267,6 +283,7 @@ const goldRateCard = ()=> {
             </CustomTabPanel>
         </div>
         <RatePopup status={isPopupOpen} handleRateChange={handleRateChange}/>
+        <ConfigRatePopup status={isSilverPopupOpen} handleConfigRateChange={handleConfigRateChange}/>
     </div>
   );
 }
