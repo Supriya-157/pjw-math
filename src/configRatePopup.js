@@ -60,17 +60,15 @@ export default function FormDialog(props) {
     gentsRing: localStorage.getItem('gentsRing') != null ? localStorage.getItem('gentsRing') : '120' ,
     LdsRing: localStorage.getItem('LdsRing') != null ? localStorage.getItem('LdsRing') : '140' ,
     gentsBracelet_neckChain: localStorage.getItem('gentsBracelet_neckChain') != null ? localStorage.getItem('gentsBracelet_neckChain') : '110' ,
+    Q1: localStorage.getItem('Q1') != null ? localStorage.getItem('Q1') : '430' ,
+    Q2: localStorage.getItem('Q2') != null ? localStorage.getItem('Q2') : '530' ,
+    Q3: localStorage.getItem('Q3') != null ? localStorage.getItem('Q3') : '630' ,
+    oldSilver: localStorage.getItem('oldSilver') != null ? localStorage.getItem('oldSilver') : '28' ,
+    silverDiscount: localStorage.getItem('silverDiscount') != null ? localStorage.getItem('silverDiscount') : '4' ,
   });
 
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  //   props.status = true;
-  // };
 
-  const handleClose = () => {
-    //setOpen(false);
-   // props.status = false;
-    
+  const handleClose = () => {    
     props.handleConfigRateChange();
   };
 
@@ -92,51 +90,16 @@ export default function FormDialog(props) {
     localStorage.setItem('gentsRing',values.gentsRing);
     localStorage.setItem('LdsRing',values.LdsRing);
     localStorage.setItem('gentsBracelet_neckChain',values.gentsBracelet_neckChain);
+    localStorage.setItem('Q1',values.Q1);
+    localStorage.setItem('Q2',values.Q2);
+    localStorage.setItem('Q3',values.Q3);
+    localStorage.setItem('silverDiscount',values.silverDiscount);
+    localStorage.setItem('oldSilver',values.oldSilver);
     
      handleClose();
   };
-    /*if(values.silverRate !== '' && values.goldRate !== ''){
-    
-        setValues({
-            ...values,
-            ['goldRateHelperText']:'',
-            ['silverRateHelperText']:''    
-          });
-          localStorage.setItem('goldRate',values.goldRate);
-          localStorage.setItem('silverRate',values.silverRate);
-          handleClose();
-    }
-    else if(values.silverRate === ''){
-             setValues({
-            ...values,
-            ['silverRateHelperText']:'Enter Silver Rate'            
-          });
-    }
-    else if(values.goldRate === ''){
-        console.log('in else if gold');
-
-        setValues({
-            ...values,
-            ['goldRateHelperText']:'Enter Gold Rate'            
-          });
-    }
-    else {     
-
-        setValues({
-            ...values,
-            [values.silverRateHelperText]:'Enter Silver Rate',
-            [values.goldRateHelperText]:'Enter Gold Rate'            
-          });
-    }
-    
-  };
-  */
-
-  
-
-  
+     
   const handleChange = (event) => {
-        //setIsSaveBtnClicked(true);
         setValues({
             ...values,
             [event.target.name]: event.target.value,
@@ -150,12 +113,311 @@ export default function FormDialog(props) {
   return (
     <div>      
       <Dialog open={props.status} onClose={handleClose}>
-        <DialogTitle>Enter the Rate</DialogTitle>
-        <DialogContent >       
-        <Grid>
-            <input type="number" name="anklet" value={values.anklet} onChange={handleChange}></input>
+        <DialogTitle>Enter per gram Rate</DialogTitle>
+        <DialogContent >  
+        <Grid container spacing={2}>     
+        <Grid item xs={4}>
+            <TextField
+                label="Anklet"
+                fullWidth
+                maxLength="3"
+                value={values.anklet}
+                onChange={handleChange}
+                name="anklet"
+                id="anklet"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
         </Grid>
-
+        <Grid item xs={4}>
+            <TextField
+                label="Bracelet"
+                fullWidth
+                maxLength="3"
+                value={values.ldsBracelet}
+                onChange={handleChange}
+                name="ldsBracelet"
+                id="ldsBracelet"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Dollar"
+                fullWidth
+                maxLength="3"
+                value={values.dollar}
+                onChange={handleChange}
+                name="dollar"
+                id="dollar"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Khada"
+                fullWidth
+                maxLength="3"
+                value={values.Khada}
+                onChange={handleChange}
+                name="Khada"
+                id="Khada"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Lakshmi Face Rglr"
+                fullWidth
+                maxLength="3"
+                value={values.lakshmiFaceRglr}
+                onChange={handleChange}
+                name="lakshmiFaceRglr"
+                id="lakshmiFaceRglr"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="lakshmiFaceHM"
+                fullWidth
+                maxLength="3"
+                value={values.lakshmiFaceHM}
+                onChange={handleChange}
+                name="lakshmiFaceHM"
+                id="lakshmiFaceHM"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="diya"
+                fullWidth
+                maxLength="3"
+                value={values.diya}
+                onChange={handleChange}
+                name="diya"
+                id="diya"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Plate"
+                fullWidth
+                maxLength="3"
+                value={values.plate}
+                onChange={handleChange}
+                name="plate"
+                id="plate"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Hollow Idol"
+                fullWidth
+                maxLength="3"
+                value={values.hollowIdol}
+                onChange={handleChange}
+                name="hollowIdol"
+                id="hollowIdol"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Solid Idol"
+                fullWidth
+                maxLength="3"
+                value={values.solidIdol}
+                onChange={handleChange}
+                name="solidIdol"
+                id="solidIdol"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Chatri"
+                fullWidth
+                maxLength="3"
+                value={values.chatri}
+                onChange={handleChange}
+                name="chatri"
+                id="chatri"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Toe/Waist Chain"
+                fullWidth
+                maxLength="3"
+                value={values.toeRing_waistChain}
+                onChange={handleChange}
+                name="toeRing_waistChain"
+                id="toeRing_waistChain"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Gents Ring"
+                fullWidth
+                maxLength="3"
+                value={values.gentsRing}
+                onChange={handleChange}
+                name="gentsRing"
+                id="gentsRing"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Ladies Ring"
+                fullWidth
+                maxLength="3"
+                value={values.LdsRing}
+                onChange={handleChange}
+                name="LdsRing"
+                id="LdsRing"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Bracelet/NeckChain"
+                fullWidth
+                maxLength="3"
+                value={values.gentsBracelet_neckChain}
+                onChange={handleChange}
+                name="gentsBracelet_neckChain"
+                id="gentsBracelet_neckChain"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+       
+        <Grid item xs={4}>
+            <TextField
+                label="Q1"
+                fullWidth
+                maxLength="3"
+                value={values.Q1}
+                onChange={handleChange}
+                name="Q1"
+                id="Q1"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Q2"
+                fullWidth
+                maxLength="3"
+                value={values.Q2}
+                onChange={handleChange}
+                name="Q2"
+                id="Q2"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Q3"
+                fullWidth
+                maxLength="3"
+                value={values.Q3}
+                onChange={handleChange}
+                name="Q3"
+                id="Q3"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={6}>
+            <TextField
+                label="oldSilver"
+                fullWidth
+                maxLength="3"
+                value={values.oldSilver}
+                onChange={handleChange}
+                name="Old Silver"
+                id="oldSilver"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={6}>
+            <TextField
+                label="silverDiscount"
+                fullWidth
+                maxLength="3"
+                value={values.silverDiscount}
+                onChange={handleChange}
+                name="Silver Discount"
+                id="silverDiscount"  
+                InputProps={{
+                  inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        </Grid>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
