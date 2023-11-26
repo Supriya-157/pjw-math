@@ -34,11 +34,77 @@ function App() {
   const rows = JewelleryItems;
   const wsForGold = GoldWastageChart;
 
+  const [silverRateObj, setSilverRateObj]=useState({
+    "Q1":Number(localStorage.getItem('Q1')),
+    "Q2":Number(localStorage.getItem('Q2')),
+    "Q3":Number(localStorage.getItem('Q3')),
+    "anklet": Number(localStorage.getItem('anklet')),
+    "ldsBracelet":Number(localStorage.getItem('ldsBracelet')),
+    "dollar": Number(localStorage.getItem('dollar')),
+    "Khada": Number(localStorage.getItem('Khada')),
+    "lakshmiFaceRglr": Number(localStorage.getItem('lakshmiFaceRglr')),
+    "lakshmiFaceHM": Number(localStorage.getItem('lakshmiFaceHM')),
+    "diya": Number(localStorage.getItem('diya')),
+    "plate": Number(localStorage.getItem('plate')),
+    "hollowIdol": Number(localStorage.getItem('hollowIdol')) ,
+    "solidIdol": Number(localStorage.getItem('solidIdol')),
+    "chatri": Number(localStorage.getItem('chatri')),
+    "toeRing_waistChain": Number(localStorage.getItem('toeRing_waistChain')) ,
+    "gentsRing": Number(localStorage.getItem('gentsRing')),
+    "LdsRing": Number(localStorage.getItem('LdsRing')),
+    "gentsBracelet_neckChain": Number(localStorage.getItem('gentsBracelet_neckChain'))
+
+  });
+
   const [goldRateObj, setGoldRateObj]=useState({
     "75":0,
     "85":0,
     "916":0
   });
+
+  const silverHeaderColumn = [{
+    name : 'Item',
+    width: 150
+  },
+  {
+    name : 'Per gm',
+    width: 45
+  },
+  {
+    name : 'Amount(₹)',
+    width: 100
+  }];
+
+  const goldHeaderColumn = [{
+    name : 'Item',
+    width: 80
+  },
+  {
+    name : 'Ws(gm)',
+    width: 30
+  },
+  {
+    name : 'Mc(₹)',
+    width: 30,
+  },
+  {
+    name : 'Amount(₹)',
+    width: 100,
+  }];
+
+  const exchangeHeaderColumn = [{
+    name : 'Item',
+    width: 80
+  },
+  {
+    name : 'Per gm',
+    width: 30
+  },
+  {
+    name : 'Amount(₹)',
+    width: 100,
+  }];
+  
   
 
   
@@ -133,21 +199,30 @@ const goldRateCard = ()=> {
           });
 
           //FOR GOLD
-          rows.filter(y=> y.isGold).map(x=>{
-            if(x.touch == 92){
-              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();              
-            }else if(x.touch == 85){
-              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();
+          rows.map(x=>{
+            if(x.isGold && !x.isExchange){
+              if(x.touch == 92){
+                x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();               
+                x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[916]/10) ) + itemMaking).toLocaleString();              
+              }else if(x.touch == 85){
+                x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();               
+                x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[85]/10) ) + itemMaking).toLocaleString();
+              }
+              else if(x.touch == 75){
+                x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();               
+                x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();
+              } 
+              x.ws = itemWastage.toFixed(3);
+              x.mc = Math.round(itemMaking).toLocaleString();
+            }else if(!x.isGold && !x.isExchange){
+              x.max = itemWt * Number(localStorage.getItem(x.id));
+              x.min = itemWt * Number(localStorage.getItem(x.id))-4;
+              x.perGram = Number(localStorage.getItem(x.id));
             }
-            else if(x.touch == 75){
-              x.max = Math.round((( itemWt + itemWastage ) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();               
-              x.min = Math.round((( itemWt + (itemWastage - 0.020 )) * (goldRateObj[75]/10) ) + itemMaking).toLocaleString();
-            } 
-            x.ws = itemWastage.toFixed(3);
-            x.mc = Math.round(itemMaking).toLocaleString();
+            
           });
+
+
 
           //FOR EXCHANGE
 
@@ -253,11 +328,11 @@ const goldRateCard = ()=> {
         </Box>
             <CustomTabPanel value={value} index={0}>
             <Grid container >
-        <Grid item xs={4}> <strong>ಕಾಲ Chain:</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[916]).toLocaleString()}</span></Grid> 
-        <Grid item xs={4}> <strong>ಕೈ ಕಾಲ ಬಳೆ :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[85]).toLocaleString()}</span></Grid> 
-        <Grid item xs={4}> <strong>Sheet :</strong><span class="realistic-marker-highlight">{Math.round(goldRateObj[75]).toLocaleString()}</span></Grid> 
+        <Grid item xs={4}> <strong>Q1 :</strong><span class="realistic-marker-highlight">{silverRateObj.Q1}</span></Grid> 
+        <Grid item xs={4}> <strong>Q2 :</strong><span class="realistic-marker-highlight">{silverRateObj.Q2}</span></Grid> 
+        <Grid item xs={4}> <strong>Q3 :</strong><span class="realistic-marker-highlight">{silverRateObj.Q3}</span></Grid> 
         </Grid>
-                <BasicTable dataSource={rows.filter(x => !x.isGold && !x.isExchange)}/>
+                <BasicTable column={silverHeaderColumn} dataSource={rows.filter(x => !x.isGold && !x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={1}>
             <Grid container >
@@ -273,10 +348,10 @@ const goldRateCard = ()=> {
             </filter>
           </defs>
         </svg>
-                <BasicTable dataSource={rows.filter(x => x.isGold)}/>
+                <BasicTable column={goldHeaderColumn} dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                <BasicTable dataSource={rows.filter(x => x.isExchange)}/>
+            <CustomTabPanel  value={value} index={2}>
+                <BasicTable column={exchangeHeaderColumn} dataSource={rows.filter(x => x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
                 pledge data
