@@ -63,7 +63,7 @@ export default function AppTable(props) {
                 }else if(row.tab === 'Exchange'){
                   return (   <StyledTableRow key={row.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>             
                             <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }}>{row.name}</StyledTableCell>      
-                            <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }}>noWrap</StyledTableCell>           
+                            <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }}>{row.perGram}</StyledTableCell>           
                             <StyledTableCell style={{ width: 100,padding: '16px 5px 16px 2px' }} align="center">{row.min} - {row.max}</StyledTableCell>              
                       </StyledTableRow>)
                 }            

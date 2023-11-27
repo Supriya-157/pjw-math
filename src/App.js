@@ -214,17 +214,42 @@ const goldRateCard = ()=> {
               } 
               x.ws = itemWastage.toFixed(3);
               x.mc = Math.round(itemMaking).toLocaleString();
-            }else if(!x.isGold && !x.isExchange){
+            } 
+            //for gold exchange
+            else if(!x.isGold && x.isExchange){
+              if(x.touch == 92){
+                x.max = Math.round(itemWt*(localStorage.getItem("goldRate")*(90/1000))).toLocaleString();               
+                x.min = 0;  
+                x.perGram = Math.round((localStorage.getItem("goldRate")*(90/1000))).toLocaleString();           
+              }else if(x.touch == 85){
+                x.max = Math.round(itemWt*(localStorage.getItem("goldRate")*(82/1000))).toLocaleString();               
+                x.min = 0; 
+                x.perGram = Math.round((localStorage.getItem("goldRate")*(82/1000))).toLocaleString(); 
+              }
+              else if(x.touch == 75){
+                x.max = Math.round(itemWt*(localStorage.getItem("goldRate")*(70/1000))).toLocaleString();               
+                x.min = 0; 
+                x.perGram = Math.round((localStorage.getItem("goldRate")*(70/1000))).toLocaleString();              
+              } //for silver exchange
+              else if(x.touch == 0){
+                x.max = itemWt * Number(localStorage.getItem("oldSilver"));
+                x.min = itemWt * 0;
+                x.perGram = Number(localStorage.getItem("oldSilver"));
+              }
+            }
+            //for silver (!x.isGold && !x.isExchange)
+            else if(!x.isGold && !x.isExchange){
               x.max = itemWt * Number(localStorage.getItem(x.id));
-              x.min = itemWt * Number(localStorage.getItem(x.id))-4;
+              x.min = itemWt * Number(localStorage.getItem(x.id)-4);
               x.perGram = Number(localStorage.getItem(x.id));
             }
+           
             
           });
 
 
 
-          //FOR EXCHANGE
+          
 
 
 
@@ -351,6 +376,12 @@ const goldRateCard = ()=> {
                 <BasicTable column={goldHeaderColumn} dataSource={rows.filter(x => x.isGold)}/>
             </CustomTabPanel>
             <CustomTabPanel  value={value} index={2}>
+            <Grid container >
+        <Grid item xs={3}> <strong>oldSilver :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.oldSilver).toLocaleString}</span></Grid> 
+        <Grid item xs={3}> <strong>70 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(70/100)).toLocaleString}</span></Grid> 
+        <Grid item xs={3}> <strong>82 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(82/100)).toLocaleString}</span></Grid> 
+        <Grid item xs={3}> <strong>90 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(90/100)).toLocaleString}</span></Grid> 
+        </Grid>
                 <BasicTable column={exchangeHeaderColumn} dataSource={rows.filter(x => x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>

@@ -253,7 +253,7 @@ export const JewelleryItems = [
         max:0,
         isExchange: true,
         isGold:false,
-        touch:0,
+        touch:75,
         tab:'Exchange',
         perGram:0,
     },
@@ -265,7 +265,7 @@ export const JewelleryItems = [
         max:0,
         isExchange: true,
         isGold:false,
-        touch:0,
+        touch:85,
         tab:'Exchange',
         perGram:0,
     },
@@ -277,7 +277,7 @@ export const JewelleryItems = [
         max:0,
         isExchange: true,
         isGold:false,
-        touch:0,
+        touch:92,
         tab:'Exchange',
         perGram:0,
     },
@@ -320,4 +320,4 @@ export const JewelleryItems = [
     }
    
 
-  ]
+  ];
