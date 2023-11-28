@@ -280,44 +280,81 @@ export const JewelleryItems = [
         touch:92,
         tab:'Exchange',
         perGram:0,
-    },
+    }
 
   ];
 
   export const GoldWastageChart = [
     {
-        min: 0.000, max:0.500, ws: 0.100
+        min: 0.000, max:0.250, ws: 0.050
     },
     {
-        min: 0.501, max:0.700, ws: 0.120
+        min: 0.2511, max:0.500, ws: 0.100
     },
     {
-        min: 0.701, max:0.800, ws: 0.130
+        min: 0.501, max:0.750, ws: 0.120
     },
     {
-        min: 0.801, max:1.000, ws: 0.150
+        min: 0.751, max:0.850, ws: 0.130
     },
     {
-        min: 1.001, max:1.250, ws: 0.200
+        min: 0.851, max:1.000, ws: 0.150
     },
     {
-        min: 1.251, max:1.500, ws: 0.250
+        min: 1.001, max:1.150, ws: 0.170
     },
     {
-        min: 1.501, max:1.750, ws: 0.300
+        min: 1.151, max:1.250, ws: 0.200
     },
     {
-        min: 1.751, max:2.000, ws: 0.350
+        min: 1.251, max:1.350, ws: 0.230
     },
     {
-        min: 2.001, max:2.250, ws: 0.400
+        min: 1.351, max:1.500, ws: 0.250
     },
     {
-        min: 2.251, max:2.500, ws: 0.450
+        min: 1.501, max:1.650, ws: 0.270
     },
     {
-        min: 2.501, max:2.750, ws: 0.500
+        min: 1.651, max:1.800, ws: 0.280
+    },
+    {
+        min: 1.801, max:2.000, ws: 0.300
+    },
+    {
+        min: 2.001, max:5.000, ws: 0.150
+    },
+    {
+        min: 5.001, max:10.000, ws: 0.150
     }
    
 
   ];
+  export const PledgeItemChart = [{
+        name:"silver",
+        perGram:0,
+        interest:0,
+        eligibleAmt:0,
+        tab:"Pledge"
+    },
+    {
+        name:"75 T",
+        perGram:0,
+        interest:0,
+        eligibleAmt:0,
+        tab:"Pledge"
+    },
+    {
+        name:"85 KDM",
+        perGram:0,
+        interest:0,
+        eligibleAmt:0,
+        tab:"Pledge"
+    },
+    {
+        name:"916 Item",
+        perGram:0,
+        interest:0,
+        eligibleAmt:0,
+        tab:"Pledge"
+    }];

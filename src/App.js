@@ -11,7 +11,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Grid from "@mui/material/Grid";
-import {GoldWastageChart,JewelleryItems} from './data';
+import {GoldWastageChart,JewelleryItems,PledgeItemChart} from './data';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -32,6 +32,7 @@ function App() {
   const [state, setState] = useState({weight: undefined});
   const [value, setValue] = React.useState(0);
   const rows = JewelleryItems;
+  const pledgeRows = PledgeItemChart;
   const wsForGold = GoldWastageChart;
 
   const [silverRateObj, setSilverRateObj]=useState({
@@ -55,7 +56,7 @@ function App() {
     "gentsBracelet_neckChain": Number(localStorage.getItem('gentsBracelet_neckChain'))
 
   });
-
+const depriciation = Number(localStorage.getItem('depreciation'));
   const [goldRateObj, setGoldRateObj]=useState({
     "75":0,
     "85":0,
@@ -105,7 +106,19 @@ function App() {
     width: 100,
   }];
   
-  
+  const pledgeHeaderColumn = [{
+    name : 'Item',
+    width: 150
+  },
+  {
+    name : 'Eligible Amt',
+    width: 45
+  },
+  {
+    name : 'Interest',
+    width: 100
+  }];
+
 
   
   const handleRateChange = () => {
@@ -192,10 +205,24 @@ const goldRateCard = ()=> {
         let itemWastage = 0;
         let itemMaking = 0;
           wsForGold.map(x=>{
-              if(itemWt >= x.min && itemWt <= x.max){               
-                itemWastage = x.ws;
-                itemMaking = x.ws * 1000;
-              }    
+              if(itemWt >= x.min && itemWt <= x.max){
+               if(itemWt >= 0.000 && itemWt <= 2.000) {           
+                  itemWastage = x.ws;
+                  itemMaking = x.ws * 1000;
+               }
+                else if(itemWt >= 2.001 && itemWt <= 5.000){
+                  itemWastage = itemWt*x.ws;
+                itemMaking = itemWastage * 1000;
+                }
+                else if(itemWt >= 5.001 && itemWt <= 10.000){
+                  itemWastage = itemWt*x.ws;
+                itemMaking = itemWastage * 1000;
+                }
+              } 
+              else if(itemWt >= 10.001){
+                itemWastage = itemWt*(10/100) ;
+                itemMaking = itemWastage * 1000;
+              }   
           });
 
           //FOR GOLD
@@ -232,22 +259,43 @@ const goldRateCard = ()=> {
                 x.perGram = Math.round((localStorage.getItem("goldRate")*(70/1000))).toLocaleString();              
               } //for silver exchange
               else if(x.touch == 0){
-                x.max = itemWt * Number(localStorage.getItem("oldSilver"));
-                x.min = itemWt * 0;
-                x.perGram = Number(localStorage.getItem("oldSilver"));
+                x.max = Math.round(itemWt * Number(localStorage.getItem("oldSilver")/10)).toLocaleString();
+                x.min = 0;
+                x.perGram = Math.round(Number(localStorage.getItem("oldSilver")/10)).toLocaleString();
               }
             }
             //for silver (!x.isGold && !x.isExchange)
             else if(!x.isGold && !x.isExchange){
-              x.max = itemWt * Number(localStorage.getItem(x.id));
-              x.min = itemWt * Number(localStorage.getItem(x.id)-4);
-              x.perGram = Number(localStorage.getItem(x.id));
+              x.max = Math.round(itemWt * Number(localStorage.getItem(x.id))).toLocaleString();
+              x.min = Math.round(itemWt * Number(localStorage.getItem(x.id)-4)).toLocaleString();
+              x.perGram = Math.round(Number(localStorage.getItem(x.id))).toLocaleString();
             }
            
             
           });
-
-
+//for pledge item
+pledgeRows.map(x => {
+  if(x.name == 'silver'){
+    x.perGram = 30;
+    x.eligibleAmt = Math.round(itemWt*x.perGram).toLocaleString();
+    x.interest = Math.round(x.eligibleAmt*(2/100)).toLocaleString();
+  }
+  if(x.name == '75 T'){
+    x.perGram = goldRateObj[75]/10;
+    x.eligibleAmt = Math.round(itemWt*x.perGram*((100-depriciation)/100)).toLocaleString();
+    x.interest = Math.round(x.eligibleAmt*(2/100)).toLocaleString();
+  }
+  if(x.name == '85 KDM'){
+    x.perGram = goldRateObj[85]/10;
+    x.eligibleAmt = Math.round(itemWt*x.perGram*((100-depriciation)/100)).toLocaleString();
+    x.interest = Math.round(x.eligibleAmt*(2/100)).toLocaleString();
+  }
+  if(x.name == '916 Item'){
+    x.perGram = goldRateObj[916]/10;
+    x.eligibleAmt = Math.round(itemWt*x.perGram*((100-depriciation)/100)).toLocaleString();
+    x.interest = Math.round(x.eligibleAmt*(2/100)).toLocaleString();
+  }
+});
 
           
 
@@ -377,15 +425,21 @@ const goldRateCard = ()=> {
             </CustomTabPanel>
             <CustomTabPanel  value={value} index={2}>
             <Grid container >
-        <Grid item xs={3}> <strong>oldSilver :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.oldSilver).toLocaleString}</span></Grid> 
-        <Grid item xs={3}> <strong>70 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(70/100)).toLocaleString}</span></Grid> 
-        <Grid item xs={3}> <strong>82 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(82/100)).toLocaleString}</span></Grid> 
-        <Grid item xs={3}> <strong>90 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.goldRate*(90/100)).toLocaleString}</span></Grid> 
-        </Grid>
+        <Grid item xs={3}> <strong>90 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.getItem("goldRate")*(90/100)).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>82 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.getItem("goldRate")*(82/100)).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>70 :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.getItem("goldRate")*(70/100)).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>O.Slvr :</strong><span class="realistic-marker-highlight">{Math.round(localStorage.getItem("oldSilver")).toLocaleString()}</span></Grid> 
+</Grid>
                 <BasicTable column={exchangeHeaderColumn} dataSource={rows.filter(x => x.isExchange)}/>
             </CustomTabPanel>
             <CustomTabPanel value={value} index={3}>
-                pledge data
+            <Grid container >
+        <Grid item xs={3}> <strong>916 :</strong><span class="realistic-marker-highlight">{Math.round(pledgeRows.find(x => x.name == "916 Item").perGram).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>85 :</strong><span class="realistic-marker-highlight">{Math.round(pledgeRows.find(x => x.name == "85 KDM").perGram).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>75 :</strong><span class="realistic-marker-highlight">{Math.round(pledgeRows.find(x => x.name == "75 T").perGram).toLocaleString()}</span></Grid> 
+        <Grid item xs={3}> <strong>O.Slvr :</strong><span class="realistic-marker-highlight">{Math.round(pledgeRows.find(x => x.name == "silver").perGram).toLocaleString()}</span></Grid> 
+</Grid>
+        <BasicTable column={pledgeHeaderColumn} dataSource={pledgeRows}/>
             </CustomTabPanel>
         </div>
         <RatePopup status={isPopupOpen} handleRateChange={handleRateChange}/>

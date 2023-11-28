@@ -38,6 +38,32 @@ const NumberFormatCustom = React.forwardRef(function NumberFormatCustom(props, r
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
   };
+  const PercentFormatCustom = React.forwardRef(function PercentFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+  
+    return (
+      <NumberFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+          onChange({
+            target: {
+              name: props.name,
+              value: values.value,
+            },
+          });
+        }}
+        thousandSeparator
+        isNumericString
+        prefix="%"
+      />
+    );
+  });
+  
+  PercentFormatCustom.propTypes = {
+    name: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+  };
 
 export default function FormDialog(props) {
    
@@ -65,6 +91,7 @@ export default function FormDialog(props) {
     Q3: localStorage.getItem('Q3') != null ? localStorage.getItem('Q3') : '630' ,
     oldSilver: localStorage.getItem('oldSilver') != null ? localStorage.getItem('oldSilver') : '28' ,
     silverDiscount: localStorage.getItem('silverDiscount') != null ? localStorage.getItem('silverDiscount') : '4' ,
+    depreciation: localStorage.getItem('depreciation') != null ? localStorage.getItem('depreciation') : '10' ,
   });
 
 
@@ -95,6 +122,7 @@ export default function FormDialog(props) {
     localStorage.setItem('Q3',values.Q3);
     localStorage.setItem('silverDiscount',values.silverDiscount);
     localStorage.setItem('oldSilver',values.oldSilver);
+    localStorage.setItem('depreciation',values.depreciation);
     
      handleClose();
   };
@@ -344,7 +372,7 @@ export default function FormDialog(props) {
        
         <Grid item xs={4}>
             <TextField
-                label="Q1"
+                label="Q1/10gm"
                 fullWidth
                 maxLength="3"
                 value={values.Q1}
@@ -359,7 +387,7 @@ export default function FormDialog(props) {
         </Grid>
         <Grid item xs={4}>
             <TextField
-                label="Q2"
+                label="Q2/10gm"
                 fullWidth
                 maxLength="3"
                 value={values.Q2}
@@ -374,7 +402,7 @@ export default function FormDialog(props) {
         </Grid>
         <Grid item xs={4}>
             <TextField
-                label="Q3"
+                label="Q3/10gm"
                 fullWidth
                 maxLength="3"
                 value={values.Q3}
@@ -387,14 +415,14 @@ export default function FormDialog(props) {
                 variant="standard"                
               />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
             <TextField
-                label="oldSilver"
+                label="oldSilver/10gm"
                 fullWidth
                 maxLength="3"
                 value={values.oldSilver}
                 onChange={handleChange}
-                name="Old Silver"
+                name="oldSilver"
                 id="oldSilver"  
                 InputProps={{
                   inputComponent: NumberFormatCustom,
@@ -402,17 +430,32 @@ export default function FormDialog(props) {
                 variant="standard"                
               />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={4}>
             <TextField
                 label="silverDiscount"
                 fullWidth
                 maxLength="3"
                 value={values.silverDiscount}
                 onChange={handleChange}
-                name="Silver Discount"
+                name="silverDiscount"
                 id="silverDiscount"  
                 InputProps={{
                   inputComponent: NumberFormatCustom,
+                }}
+                variant="standard"                
+              />
+        </Grid>
+        <Grid item xs={4}>
+            <TextField
+                label="Depreciation"
+                fullWidth
+                maxLength="3"
+                value={values.depreciation}
+                onChange={handleChange}
+                name="depreciation"
+                id="depreciation"  
+                InputProps={{
+                  inputComponent: PercentFormatCustom,
                 }}
                 variant="standard"                
               />
